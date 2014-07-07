@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <link rel="stylesheet" href="http://gallery.kissyui.com/DepartureLayer/1.0/DepartureLayer.css" />
+        <link rel="stylesheet" href="http://a.tbcdn.cn/s/kissy/gallery/DepartureLayer/1.0/DepartureLayer.css" />
         <link rel="dns-prefetch" href="//g.tbcdn.cn">
         <link rel="dns-prefetch" href="//gju1.alicdn.com">
         <link rel="dns-prefetch" href="//gju2.alicdn.com">
@@ -4233,19 +4233,19 @@ if(document.location.href.indexOf("http://ju.taobao.com/tg/forecast.htm") !== -1
 </script>
 <script charset="utf-8">
     (function(S) {
-        // var srcPath = "../../";
-        // S.config({
-        //     debug : true,
-        //     packages:[
-        //         {
-        //             name:"depatureie6",
-        //             path:srcPath,
-        //             charset:"utf-8",
-        //             ignorePackageNameInUri:true
-        //         }
-        //     ]
-        // });
-        KISSY.use('gallery/DepartureLayer/1.0/index', function(S,DepartureLayer){
+        var srcPath = "../../";
+        S.config({
+            debug : true,
+            packages:[
+                {
+                    name:"DepartureLayer",
+                    path:srcPath,
+                    charset:"utf-8",
+                    ignorePackageNameInUri:true
+                }
+            ]
+        });
+        KISSY.use('DepartureLayer/1.0/index', function(S,DepartureLayer){
             var departureLayer = new DepartureLayer(
             {   
                 browser : [{ browser:'ie', version: '10'},{ browser:'chrome', version: '36'}], 
@@ -4264,12 +4264,13 @@ if(document.location.href.indexOf("http://ju.taobao.com/tg/forecast.htm") !== -1
                     toptip_text : '亲，您的浏览器版本过低导致图片打开速度过慢，提升打开速度您可以：',
                     toptip_btn_text : '升级浏览器'
                 },
-                updateLink : 'http://windows.microsoft.com/zh-cn/internet-explorer/download-ie' 
+                updateLink : 'http://windows.microsoft.com/zh-cn/internet-explorer/download-ie' ,
+                // onClose : function(){}  test
             }
             );
             departureLayer.show();
         });
-    })(KISSY);
+        })(KISSY);
     </script>
 
     </body>
