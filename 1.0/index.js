@@ -6,10 +6,33 @@
  * @update 2014-06-26
  * @example
  *
- *	
- *
+ *    KISSY.use('gallery/DepartureLayer/1.0/index', function(S,DepartureLayer){
+ *           var departureLayer = new DepartureLayer(
+ *           {   
+ *               browser : [{ browser:'ie', version: '10'},{ browser:'chrome', version: '36'}], 
+ *               intervalTime : '10000',     
+ *               layer : 
+ *               {
+ *                   tip : '其实...亲有更好的选择',
+ *                   btn_type_pic : 'http://gtms04.alicdn.com/tps/i4/TB1kLVqFVXXXXX1XpXXJPIyFpXX-143-56.png',
+ *                   imgsrc : [ 'http://gtms01.alicdn.com/tps/i1/TB1UpxsFVXXXXbIXXXXIXul4XXX-860-342.png',
+ *                              'http://gtms02.alicdn.com/tps/i2/TB1d9prFVXXXXc1XXXXl0Cl4XXX-860-343.png' ,
+ *                              'http://gtms03.alicdn.com/tps/i3/TB1OORrFVXXXXcbXXXXIXul4XXX-860-342.png']
+ *               },
+ *               toptipBar : 
+ *               {
+ *                   enable : true,
+ *                   toptip_text : '亲，您的浏览器版本过低导致图片打开速度过慢，提升打开速度您可以：',
+ *                   toptip_btn_text : '升级浏览器'
+ *               },
+ *               updateLink : 'http://windows.microsoft.com/zh-cn/internet-explorer/download-ie' 
+ *           }
+ *           );
+ *           departureLayer.show();
+ *       });
+ *   })(KISSY);
  */
-KISSY.add(function(S,CORE,UA,Anim) {
+KISSY.add(function(S,CORE,UA,Anim,Storage) {
     var $= S.all,DOM = S.DOM,WEEK_MS= 1000 * 60 * 60 * 24 * 7;
     /**
     * @class xx
@@ -26,6 +49,7 @@ KISSY.add(function(S,CORE,UA,Anim) {
 
         // 负责ATTRS参数get,set，KISSY.Base处理配置参数
         DepartureLayer.superclass.constructor.call(self, newconfig);
+
     }
     //继承于KISSY.Base
     S.extend(DepartureLayer, S.Base);
@@ -38,7 +62,7 @@ KISSY.add(function(S,CORE,UA,Anim) {
     DepartureLayer.ATTRS = {
         //是否显示更新提示
 		browser: {
-			value: [['ie','10']],
+			value: [{ browser:'ie', version: '10'}],
 			setter: function(v){
 				return v;
 			}
@@ -87,22 +111,8 @@ KISSY.add(function(S,CORE,UA,Anim) {
          */
 		 show:function(){
 		 	var self = this;
-		 	var srcPath = "../../";
-	        S.config({
-	            debug : true,
-	            packages:[
-	                {
-	                    name:"depatureie6",
-	                    path:srcPath,
-	                    charset:"utf-8",
-	                    ignorePackageNameInUri:true
-	                }
-	            ]
-	        });
-			S.use('depatureie6/1.0/store', function (S,Storage) {
-				Storage.clear();
-		        self._uaTest(Storage);
-		    });
+			//	Storage.clear();
+		    self._uaTest(Storage);
 		 	
 		 },
         /**
@@ -118,17 +128,16 @@ KISSY.add(function(S,CORE,UA,Anim) {
 			 	var supernatant =  $(html1);
 			 	supernatant.prependTo("body");
 
-				S.use('depatureie6/1.0/demo/global.css', function (S) {
-					if(Storage.get("tipBar")==1){
-			      		var tipEl =S.get('#pupUplayer_tipel')
-							DOM.show(tipEl);
-						    var anim = new Anim(tipEl, {
-						       height: 45
-						     }, .3, "easeOut");
-						    return anim.run();
-			      	}else{
-						S.use('gallery/slide/1.3/index', function(S,Slide){
-							C = new Slide('slides',{
+				if(Storage.get("tipBar")==1 && !self._promptIE(Storage)){
+			   		var tipEl =S.get('#pupUplayer_tipel')
+					DOM.show(tipEl);
+				    var anim = new Anim(tipEl, {
+		  		        height: 45
+				    }, .3, "easeOut");
+				    return anim.run();
+			    }else{
+					S.use('gallery/slide/1.3/index', function(S,Slide){
+					C = new Slide('slides',{
 									autoSlide:false,
 									hoverStop:true,
 									effect:'hSlide',
@@ -143,33 +152,33 @@ KISSY.add(function(S,CORE,UA,Anim) {
 									touchmove:true
 								}).on('afterSwitch',function(){
 								});
-							S.ready(function(S){
+						S.ready(function(S){
 								DOM.style("#down","height",DOM.docHeight());
 								var viewPortHeight = DOM.viewportHeight();
 								var verticalHeight = DOM.viewportHeight()/2-266;
 								DOM.style("#container","marginTop",verticalHeight+"px");
-							});
-							S.all("#pupUplayer").delegate('click','#J_pre',function(e){
+						});
+						S.all("#pupUplayer").delegate('click','#J_pre',function(e){
 								e.halt();
 								C.previous();
 								if(C.autoSlide && C.stoped === false){
 									C.stop().play();
 								}
-							});
-							S.all("#pupUplayer").delegate('click','#J_next',function(e){
+						});
+						S.all("#pupUplayer").delegate('click','#J_next',function(e){
 								e.halt();
 								C.next();
 								if(C.autoSlide && C.stoped === false){
 									C.stop().play();
 								}
-							});
-							S.all("#pupUplayer").delegate('mouseenter','#closebtn',function(){
+						});
+						S.all("#pupUplayer").delegate('mouseenter','#closebtn',function(){
 								DOM.style("#down-close","visibility","visible");
-							});
-							S.all("#pupUplayer").delegate('mouseleave','#down-close',function(){
+						});
+						S.all("#pupUplayer").delegate('mouseleave','#down-close',function(){
 								DOM.style("#down-close","visibility","hidden");
-							});
-							S.all("#pupUplayer").delegate('click','#down_close_btn',function(){
+						});
+						S.all("#pupUplayer").delegate('click','#down_close_btn',function(){
 								Storage.set("timeStamp",new Date().getTime());
 								DOM.style("#pupUplayer","display","none");
 								if(self.get('toptipBar').enable == true){
@@ -181,11 +190,9 @@ KISSY.add(function(S,CORE,UA,Anim) {
 								     }, .3, "easeOut");
 								    return anim.run();
 								}
-							});
-
 						});
-					}
-				});
+					});
+				}
 		 },
 		 _getHtml : function(Storage){
 			 	var self = this;
@@ -250,10 +257,12 @@ KISSY.add(function(S,CORE,UA,Anim) {
 					</div>\
 					<div id="down"></div>\
 				<div>';
-				if(Storage.get("tipBar")){
+
+	      		if (self._promptIE(Storage)){
+					return supernatantHtml;
+				}else if(Storage.get("tipBar")==1){
 					return supernatantTipBarHtml;
-				}else
-	      			return supernatantHtml;
+				}
 		 },
 		 /**
          * 判断浏览器类型
@@ -288,7 +297,7 @@ KISSY.add(function(S,CORE,UA,Anim) {
         },
         _uaTest : function(Storage){
             var self = this, count = self.get('browser').length, flag=false, i=0;
-            while(!self._find(Storage, self.get('browser')[i][0], self.get('browser')[i][1])){
+            while(!self._find(Storage, self.get('browser')[i].browser, self.get('browser')[i].version)){
             	i++;
             	if(i == count)	break;
             }
@@ -322,5 +331,5 @@ KISSY.add(function(S,CORE,UA,Anim) {
 		}
     });
     return DepartureLayer;
-}, { requires: ['core','ua','anim'] });
+}, { requires: ['core','ua','anim','./store'] });
 

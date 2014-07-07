@@ -1,5 +1,5 @@
 {
-    "name": "depatureie6",
+    "name": "DepartureLayer",
     "version": "1.0.0",
     "devDependencies": {
         "grunt-contrib-uglify": "~0.2.0",
