@@ -15,8 +15,7 @@ DepartureLayer是一个可配置的弹出浮层，在检测到一定的浏览器
         departureLayer.show();
     })
     2.引入默认css：
-    <link rel="stylesheet" href="../DepartureLayer.css" />
-### 自定义配置
+    <link rel="stylesheet" href="http://gallery.kissyui.com/DepartureLayer/1.0/DepartureLayer.css" />### 自定义配置
 用户可自定义部分或全部配置项，未配置项将采用默认配置。
 /Users/jinse/Sites/depatureie6new2/src/mods/DepartureLayer/1.0/guide/index.md
 ## API说明
