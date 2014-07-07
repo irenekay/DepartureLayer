@@ -1,0 +1,84 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>first Component</title>
+    <script src="http://g.tbcdn.cn/kissy/k/1.4.1/seed-min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="http://g.tbcdn.cn/kissy/k/1.3.0/css/dpl/base-min.css">
+</head>
+<body>
+    <p> dfadfasdfasdfs</p>
+    <h1>2e23</h1>
+    <h2>dafdfasdfasd</h2>
+    <pre>
+        dfa
+        dfasdfafa
+        sdfsadfasfddddfsadf
+    </pre>
+    <ul class="toc">
+        <li class="level1"><div class="li"><a href="#新版标签语法">新版标签语法</a></div>
+        <ul class="toc">
+        <li class="level2"><div class="li"><a href="#概述">概述</a></div></li>
+        <li class="level2"><div class="li"><a href="#标签定义">标签定义</a></div></li>
+        <li class="level2"><div class="li"><a href="#容器标签">容器标签</a></div>
+        <ul class="toc">
+        <li class="level3"><div class="li"><a href="#tms_module_begin">_tms_module_begin</a></div></li>
+        <li class="level3"><div class="li"><a href="#tms_module_end">_tms_module_end</a></div></li>
+        <li class="level3"><div class="li"><a href="#tms_repeat_begin">_tms_repeat_begin</a></div></li>
+        <li class="level3"><div class="li"><a href="#tms_repeat_end">_tms_repeat_end</a></div></li>
+        </ul>
+        </li>
+        <li class="level2"><div class="li"><a href="#数据标签">数据标签</a></div>
+        <ul class="toc">
+        <li class="level3"><div class="li"><a href="#tms_text">_tms_text</a></div></li>
+        <li class="level3"><div class="li"><a href="#tms_textarea">_tms_textArea</a></div></li>
+        <li class="level3"><div class="li"><a href="#tms_textlink">_tms_textLink</a></div></li>
+        <li class="level3"><div class="li"><a href="#tms_image">_tms_image</a></div></li>
+        <li class="level3"><div class="li"><a href="#tms_imagelink">_tms_imageLink</a></div></li>
+        <li class="level3"><div class="li"><a href="#tms_custom">_tms_custom</a></div></li>
+        <li class="level3"><div class="li"><a href="#tms_dynamic">_tms_dynamic</a></div></li>
+        <li class="level3"><div class="li"><a href="#tms_subarea">_tms_subArea</a></div></li>
+        <li class="level3"><div class="li"><a href="#tms_articlelist">_tms_articleList</a></div></li>
+        <li class="level3"><div class="li"><a href="#tms_autoextract">_tms_autoExtract</a></div></li>
+        </ul>
+        </li>
+        <li class="level2"><div class="li"><a href="#代码示例">代码示例</a></div></li>
+        </ul></li>
+    </ul>
+    <img src="pic/slide1.png" style="display:block;" />
+    <img src="pic/slide2.png" style="display:block;" />
+    <img src="pic/slide3.png" style="display:block;" />
+
+	<script>
+    (function(S) {
+        var srcPath = "../../";
+        S.config({
+            debug : true,
+            packages:[
+                {
+                    name:"depatureie6",
+                    path:srcPath,
+                    charset:"utf-8",
+                    ignorePackageNameInUri:true
+                }
+            ]
+        });
+        KISSY.use('depatureie6/1.0/index', function(S,DepartureLayer){
+			var departureLayer = new DepartureLayer(
+            {   
+                browser : [['firefox','36'],['chrome','36'],['ie','9']], 
+                toptipBar : 
+                {
+                    enable : true,
+                    toptip_text : 'lalalal',
+                    toptip_btn_text : 'testtest'
+                },
+                intervalTime : '3000'     //  间隔时间，以ms为单位，默认为WEEK_MS      
+            }
+            );
+            departureLayer.show();
+		});
+    })(KISSY);
+	</script>
+</body>
+
+</html>
